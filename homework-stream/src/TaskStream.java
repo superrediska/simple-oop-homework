@@ -11,7 +11,9 @@ public class TaskStream {
      */
 
     public static double task1(List<Book> books) {
-        return 0.0;
+        return books.stream()
+                .mapToDouble(Book::getPrice)
+                .sum();
     }
 
     /**
