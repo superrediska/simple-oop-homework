@@ -1,6 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
-
+        String a = "aaadddssffffaa";
+        maxCharIndex(a);
     }
 
     public static void printStringReverse(String str) {
@@ -46,21 +50,64 @@ public class Main {
 
     }
 
-    public static String getWordsReverse(String string) {
-        if (string == null || string.trim().isEmpty()) {
+    public static String getWordsReverse(String str) {
+        if (str == null || str.trim().isEmpty()) {
             return null;
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        String[] words = string.split("//s+");
+        String[] words = str.split("//s+");
         for (int i = words.length; i < -1; i++) {
             stringBuilder.append(words[i]);
-            if (i > 0){
+            if (i > 0) {
                 stringBuilder.append(" ");
             }
         }
         return stringBuilder.toString();
     }
 
+    public static String getWordsReverseInColumn(String str) {
+        if (str == null || str.trim().isEmpty()) {
+            System.out.println("Wrong string");
+            return null;
+
+        }
+        String[] words = str.split("\\s+");
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) {
+            StringBuilder stringBuilderRev = new StringBuilder(words[i]);
+            stringBuilderRev.reverse();
+
+            stringBuilder.append(stringBuilderRev.toString());
+            if (i < words.length - 1) {
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+
+
+    }
+
+    public static int maxCharIndex(String str) {
+        if (str == null || str.trim().isEmpty()) {
+            return -1;
+        }
+        Map<Character, Integer> count = new HashMap<>();
+        for (char ch : str.toCharArray()) {
+            count.put(ch, count.getOrDefault(ch, 0) + 1);
+        }
+        int maxCount = 0;
+        for (int cn : count.values()) {
+            maxCount = Math.max(maxCount, cn);
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (count.get(str.charAt(i)) == maxCount) {
+                return i;
+            }
+        }
+    return -1;
+    }
 
 }
